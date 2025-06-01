@@ -8,6 +8,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const authRoutes = require("./routes/auth");
 const userRoutes = require("./routes/users");
+const chatRoutes = require('./routes/chatRoutes');
 const cors = require("cors");
 const http = require("http");
 const { Server } = require("socket.io");
@@ -54,6 +55,7 @@ app.use(express.json());
 
 app.use("/api/auth", authRoutes);
 app.use("/api/user", userRoutes);
+app.use('/api/chat', chatRoutes);
 
 mongoose
   .connect(process.env.MONGO_URI)
