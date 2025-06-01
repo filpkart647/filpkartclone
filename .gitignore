@@ -1,0 +1,33 @@
+# Node modules
+/node_modules
+
+# Environment variables file
+.env
+
+# Logs
+logs
+*.log
+
+# Dependency directories
+jspm_packages/
+
+# Build output
+dist
+build
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# IDE/editor specific files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Local environment files
+*.local
+
+# If you use npm package-lock or yarn.lock, add them too
+package-lock.json
+yarn.lock
