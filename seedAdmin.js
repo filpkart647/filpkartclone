@@ -13,9 +13,7 @@ const seedAdmin = async () => {
     });
     
 
-    // Check if admin user already exists
-    const adminEmail = 'admin@chat.com'
-    const adminPassword='Admin123!@#'
+  
     const existingAdmin = await User.findOne({ email: adminEmail });
     if (existingAdmin) {
       console.log('Admin user already exists.');
