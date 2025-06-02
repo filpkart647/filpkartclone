@@ -24,12 +24,16 @@ exports.sendMessage = async (req, res) => {
 };
 
 exports.getMessagesWithUser = async (req, res) => {
-  const userId = req.params.userId;
+  let userId = req.params.userId;
 
+if (req.user.userId == userId) {
+  const user =  await User.findOne({ username:'admin' });
+  userId = user?._id ? user._id : user.id
+}
   const messages = await Message.find({
     $or: [
-      { sender: req.user.userId.toString(), receiver: userId },
-      { sender: userId, receiver: req.user.userId.toString()}
+      { sender: req.user.userId, receiver: userId },
+      { sender: userId, receiver: req.user.userId}
     ]
   }).sort({ timestamp: 1 });
 
