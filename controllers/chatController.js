@@ -9,13 +9,13 @@ exports.sendMessage = async (req, res) => {
     return res.status(400).json({ error: 'Missing fields' });
   }
 
-  if (req.user.id == receiverId) {
+  if (req.user.userId == receiverId) {
     const user =  await User.findOne({ username:'admin' });
     receiverId = user.id
   }
 
   const message = await Message.create({
-    sender: req.user._id,
+    sender: req.user.userId,
     receiver: receiverId,
     content
   });
@@ -28,8 +28,8 @@ exports.getMessagesWithUser = async (req, res) => {
 
   const messages = await Message.find({
     $or: [
-      { sender: req.user._id, receiver: userId },
-      { sender: userId, receiver: req.user._id }
+      { sender: req.user.userId, receiver: userId },
+      { sender: userId, receiver: req.user.userId }
     ]
   }).sort({ timestamp: 1 });
 
@@ -41,7 +41,7 @@ exports.getUnreadMessages = async (req, res) => {
 
   const messages = await Message.find({
     sender: fromUserId,
-    receiver: req.user._id,
+    receiver: req.user.userId,
     isRead: false
   });
 
