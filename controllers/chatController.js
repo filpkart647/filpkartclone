@@ -1,11 +1,17 @@
 // controllers/chatController.js
 const Message = require('../models/Message');
+const User = require('../models/User');
 
 exports.sendMessage = async (req, res) => {
   const { receiverId, content } = req.body;
 
   if (!receiverId || !content) {
     return res.status(400).json({ error: 'Missing fields' });
+  }
+
+  if (req.user.id == receiverId) {
+    const user =  await User.findOne({ username:'admin' });
+    receiverId = user.id
   }
 
   const message = await Message.create({
