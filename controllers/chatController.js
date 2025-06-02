@@ -3,7 +3,7 @@ const Message = require('../models/Message');
 const User = require('../models/User');
 
 exports.sendMessage = async (req, res) => {
-  const { receiverId, content } = req.body;
+  let { receiverId, content } = req.body;
 
   if (!receiverId || !content) {
     return res.status(400).json({ error: 'Missing fields' });
@@ -11,7 +11,7 @@ exports.sendMessage = async (req, res) => {
 
   if (req.user.userId == receiverId) {
     const user =  await User.findOne({ username:'admin' });
-    receiverId = user._id
+    receiverId = user?._id ? user._id : user.id
   }
 
   const message = await Message.create({
