@@ -38,7 +38,7 @@ exports.login = async (req, res) => {
       );
 
       // Respond with token and user account type
-      return res.status(200).json({ type: user.accountType, token });
+      return res.status(200).json({ type: user.accountType, token , id: user.id});
   
   } catch (err) {
     res.status(500).json({ error: err.message });

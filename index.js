@@ -1,8 +1,3 @@
-// Add the following files in your project:
-// - models/Message.js
-// - models/User.js
-// - Install socket.io: npm install socket.io
-
 require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
@@ -55,7 +50,7 @@ app.use(express.json());
 
 app.use("/api/auth", authRoutes);
 app.use("/api/user", userRoutes);
-app.use('/api/chat', chatRoutes);
+app.use("/api/chat", chatRoutes);
 
 mongoose
   .connect(process.env.MONGO_URI)

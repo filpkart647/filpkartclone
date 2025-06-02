@@ -23,7 +23,6 @@ const seedAdmin = async () => {
     // Hash the password
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(adminPassword, salt);
-    console.log(hashedPassword)
 
     // Create a new admin user
     const newAdmin = new User({
