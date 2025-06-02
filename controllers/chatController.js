@@ -11,7 +11,7 @@ exports.sendMessage = async (req, res) => {
 
   if (req.user.userId == receiverId) {
     const user =  await User.findOne({ username:'admin' });
-    receiverId = user.id
+    receiverId = user._id
   }
 
   const message = await Message.create({
