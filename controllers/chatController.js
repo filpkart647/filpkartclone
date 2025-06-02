@@ -28,8 +28,8 @@ exports.getMessagesWithUser = async (req, res) => {
 
   const messages = await Message.find({
     $or: [
-      { sender: req.user.userId, receiver: userId },
-      { sender: userId, receiver: req.user.userId }
+      { sender: req.user.userId.toString(), receiver: userId },
+      { sender: userId, receiver: req.user.userId.toString()}
     ]
   }).sort({ timestamp: 1 });
 
