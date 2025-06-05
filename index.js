@@ -61,16 +61,22 @@ io.on("connection", (socket) => {
   });
 
   socket.on("sendMessage", async ({ senderId, receiverId, content }) => {
-    if (!senderId || !receiverId || !content) return;
-
-    const message = await Message.create({ sender: senderId, receiver: receiverId, content });
-    console.log({message})
-
-    const receiverSocketId = connectedUsers.get(receiverId);
-    if (receiverSocketId) {
-      io.to(receiverSocketId).emit("receiveMessage", message);
+    try {
+      console.log({ senderId, receiverId, content })
+      if (!senderId || !receiverId || !content) return;
+  
+      const message = await Message.create({ sender: senderId, receiver: receiverId, content });
+      console.log({ message });
+  
+      const receiverSocketId = connectedUsers.get(receiverId);
+      if (receiverSocketId) {
+        io.to(receiverSocketId).emit("receiveMessage", message);
+      }
+    } catch (error) {
+      console.error("Error in sendMessage socket event:", error);
     }
   });
+  
 
   socket.on("disconnect", () => {
     for (const [userId, socketId] of connectedUsers.entries()) {
