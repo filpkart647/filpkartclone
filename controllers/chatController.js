@@ -9,10 +9,7 @@ exports.sendMessage = async (req, res) => {
     return res.status(400).json({ error: 'Missing fields' });
   }
 
-  if (req.user.userId == receiverId) {
-    const user =  await User.findOne({ username:'admin' });
-    receiverId = user?._id ? user._id : user.id
-  }
+ 
 
   const message = await Message.create({
     sender: req.user.userId,
