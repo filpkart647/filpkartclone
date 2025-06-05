@@ -61,6 +61,7 @@ io.on("connection", (socket) => {
   });
 
   socket.on("sendMessage", async ({ senderId, receiverId, content }) => {
+    console.log({id:'dadsfff', senderId, receiverId, content })
     if (!senderId || !receiverId || !content) return;
 
     const message = await Message.create({ sender: senderId, receiver: receiverId, content });
