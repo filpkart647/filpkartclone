@@ -23,6 +23,8 @@ const allowedOrigins = [
   'http://localhost:3000',
   'http://localhost:3001',
   'http://localhost:3002',
+  'https://flipkartassit.vercel.app',
+  'https://flipkartassit-admin.vercel.app'
 ];
 
 app.use(cors({
@@ -62,13 +64,11 @@ io.on("connection", (socket) => {
 
   socket.on("sendMessage", async ({ senderId, receiverId, content }) => {
     try {
-      console.log({ senderId, receiverId, content })
+
       if (!senderId || !receiverId || !content) return;
   
       const message = await Message.create({ sender: senderId, receiver: receiverId, content });
-      console.log({ message, connectedUsers });
-  
-
+ 
         io.emit("receiveMessage", message);
       
     } catch (error) {
