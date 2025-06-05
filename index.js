@@ -64,6 +64,7 @@ io.on("connection", (socket) => {
     if (!senderId || !receiverId || !content) return;
 
     const message = await Message.create({ sender: senderId, receiver: receiverId, content });
+    console.log({message})
 
     const receiverSocketId = connectedUsers.get(receiverId);
     if (receiverSocketId) {
