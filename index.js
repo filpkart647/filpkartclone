@@ -66,12 +66,13 @@ io.on("connection", (socket) => {
       if (!senderId || !receiverId || !content) return;
   
       const message = await Message.create({ sender: senderId, receiver: receiverId, content });
-      console.log({ message });
+      console.log({ message, connectedUsers });
   
       const receiverSocketId = connectedUsers.get(receiverId);
+      console.log({receiverId, receiverSocketId})
       if (receiverSocketId) {
         io.to(receiverSocketId).emit("receiveMessage", message);
-      }
+      } 
     } catch (error) {
       console.error("Error in sendMessage socket event:", error);
     }
